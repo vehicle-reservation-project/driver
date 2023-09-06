@@ -1,16 +1,26 @@
 package com.microservice.driver.model;
 
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
+
+@Entity
 public class Driver {
-    private int id;
+    @Id
+    @GeneratedValue
+    private Integer id;
     private String lastName;
     private String firstName;
     private Date birthDate;
     private String licenseid;
-    private String licenseissueDate;
+    private Date licenseissueDate;
 
-    public Driver(int id, String lastName, String firstName, Date birthDate, String licenseid, String licenseissueDate) {
+
+
+    public Driver(Integer id, String lastName, String firstName, Date birthDate, String licenseid, Date licenseissueDate) {
+
         this.id = id;
         this.lastName = lastName;
         this.firstName = firstName;
@@ -19,10 +29,14 @@ public class Driver {
         this.licenseissueDate = licenseissueDate;
     }
 
-    public int getId() {
-        return id;
+    public Driver() {
+
     }
 
+
+    public Integer getId() {
+        return id;
+    }
     public void setId(int id) {
         this.id = id;
     }
@@ -59,11 +73,11 @@ public class Driver {
         this.licenseid = licenseid;
     }
 
-    public String getLicenseissueDate() {
+    public Date getLicenseissueDate() {
         return licenseissueDate;
     }
 
-    public void setLicenseissueDate(String licenseissueDate) {
+    public void setLicenseissueDate(Date licenseissueDate) {
         this.licenseissueDate = licenseissueDate;
     }
 

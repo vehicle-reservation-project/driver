@@ -1,4 +1,4 @@
-package com.microservice.driver.model;
+package com.microservice.driver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
