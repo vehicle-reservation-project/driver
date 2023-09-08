@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping(value = "/driver")
@@ -18,18 +20,18 @@ public class DriverController {
     private DriverDao driverDao;
 
     @GetMapping
-    public MappingJacksonValue listeDriver() {
-        Iterable<Driver> driver = driverDao.findAll();
+    public List<Driver> listeALLDrivers(@RequestParam(value = "firstName", required = false) String firstName,
+                                        @RequestParam(value = "lastName", required = false) String lastName) {
 
-        SimpleBeanPropertyFilter monFiltre = SimpleBeanPropertyFilter.serializeAllExcept("");
+        if (firstName == null && lastName == null){
+            List<Driver> drivers = driverDao.findAll();
+            return drivers;
+        } else if (firstName == null){
+           return driverDao.findByLastName(lastName);
+        } else {
+            return  driverDao.findByFirstName(firstName);
+        }
 
-        FilterProvider listDeNosFiltres = new SimpleFilterProvider().addFilter("monFiltreDynamique", monFiltre);
-
-        MappingJacksonValue driverFiltres = new MappingJacksonValue(driver);
-
-        driverFiltres.setFilters(listDeNosFiltres);
-
-        return driverFiltres;
     }
 
 
@@ -37,6 +39,7 @@ public class DriverController {
     public Driver showOneDriver(@PathVariable int id) {
         return driverDao.findById(id);
     }
+
 
     @PostMapping
     public Driver addDriver(@RequestBody Driver driver) {
